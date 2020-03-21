@@ -2,6 +2,7 @@
 #define SQRTEXPRESSION_H
 
 #include "UnaryExpression.h"
+#include <QErrorMessage>
 
 class SqrtExpression : UnaryExpression {
 public:
