@@ -19,9 +19,11 @@
 #include <QWidget>
 #include <QQueue>
 #include <QStack>
+#include <QList>
 #include <QLineEdit>
 #include <QGridLayout>
 #include <QErrorMessage>
+#include <QSet>
 
 class Calculator : public QWidget
 {
@@ -42,15 +44,17 @@ private slots:
 
 private:
     Button *createButton(const QString &text, const char *member);
-    double calculateBinary(double Num, QString op);
-    double calculateUnary();
+    double calculateBinary(QString left, QString op, QString right);
+    double calculateUnary(QString op, QString num);
+    double calculateTokens();
+    QSet<QString> binaryOperator;
+    QSet<QString> unaryOperator;
     bool afterEqual;
     QQueue<double> Memory;
     QString currentNum;
-    QString currentUnary;
     QString previousAns;
-    QStack<double> Operands;
-    QStack<QString> Operators;
+    QList<QString> Tokens;
+    int lastToken;  // 0 - nothing, 1 - unary, 2 - binary, 3 - number
     QLineEdit *display;
     enum { NumDigitButtons = 10 };
     Button *digitButtons[NumDigitButtons];
