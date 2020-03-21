@@ -76,7 +76,6 @@ void Calculator::digit_onClick() {
     if (afterEqual) display->clear();
     Button *clickedButton = qobject_cast<Button*>(sender());
     QString digit = clickedButton->text();
-    if (currentNum == "0" && digit == "0") return;
     currentNum += digit;
     if (display->text() == "0") display->setText(digit);
     display->setText(display->text() + digit);
