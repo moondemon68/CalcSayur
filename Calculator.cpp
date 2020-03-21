@@ -104,17 +104,21 @@ void Calculator::binaryOperator_onClick() {
     if (afterEqual) display->clear();
     Button *clickedButton = qobject_cast<Button*>(sender());
     if (!clickedButton) return;
-    QString op = clickedButton->text();
-    if (op == "+") {
-
-    } else if (op == "-") {
-
-    } else if (op == "x") {
-
-    } else if (op == ":") {
-
+    try {
+        if (Operands.size() == Operators.size()) {
+            Operands.push(calculateUnary());
+            QString op = clickedButton->text();
+            Operators.push(op);
+            display->setText(display->text() + op);
+            afterEqual = false;
+        } else {
+            QString err = "Tidak boleh ada 2 binary operator yang berurutan";
+            throw err;
+        }
+    } catch (QString error) {
+        QErrorMessage* E = new QErrorMessage();
+        E->showMessage(error);
     }
-    afterEqual = false;
 }
 
 void Calculator::unaryOperator_onClick() {
@@ -138,6 +142,11 @@ void Calculator::unaryOperator_onClick() {
 
 void Calculator::equal_onClick() {
     currentNum = QString::number(calculateUnary());
+    while (!Operands.empty()) {    // Operators and Operands have same size
+        double Num = Operands.pop();
+        QString Op = Operators.pop();
+        currentNum = QString::number(calculateBinary(Num, Op));
+    }
     display->setText(currentNum);
     previousAns = currentNum;
     currentNum = "0";
@@ -175,6 +184,8 @@ void Calculator::MR_onClick() {
 void Calculator::clear_onClick() {
     currentNum = "0";
     currentUnary = "";
+    Operators.clear();
+    Operands.clear();
     display->clear();
     afterEqual = false;
 }
@@ -185,8 +196,20 @@ Button* Calculator::createButton(const QString &text, const char *member) {
     return button;
 }
 
-double Calculator::calculateBinary() {
-
+double Calculator::calculateBinary(double Num, QString op) {
+    Expression* E;
+    if (op == "+") {
+        E = new AddExpression(new TerminalExpression(Num), new TerminalExpression(currentNum.toDouble()));
+    } else if (op == "-") {
+        E = new SubtractExpression(new TerminalExpression(Num), new TerminalExpression(currentNum.toDouble()));
+    } else if (op == "x") {
+        E = new MultiplyExpression(new TerminalExpression(Num), new TerminalExpression(currentNum.toDouble()));
+    } else if (op == ":") {
+        E = new DivideExpression(new TerminalExpression(Num), new TerminalExpression(currentNum.toDouble()));
+    } else {    // harusnya ga masuk sini
+        E = new TerminalExpression(currentNum.toDouble());
+    }
+    return E->solve();
 }
 
 double Calculator::calculateUnary() {
@@ -205,5 +228,6 @@ double Calculator::calculateUnary() {
         E = new TerminalExpression(currentNum.toDouble());
     }
     currentUnary = "";
+    currentNum = "0";
     return E->solve();
 }

@@ -42,7 +42,7 @@ private slots:
 
 private:
     Button *createButton(const QString &text, const char *member);
-    double calculateBinary();
+    double calculateBinary(double Num, QString op);
     double calculateUnary();
     bool afterEqual;
     QQueue<double> Memory;
