@@ -117,17 +117,18 @@ void Calculator::binaryOperator_onClick() {
     if (afterEqual) display->clear();
     Button *clickedButton = qobject_cast<Button*>(sender());
     QString op = clickedButton->text();
-    display->setText(display->text() + op);
     if (!clickedButton) return;
     try {
         if ((lastToken == 2 || lastToken == 0) && op == "-") {  // - jadi unary
             Tokens.push_back(op);
+            display->setText(display->text() + op);
             lastToken = 2;
             afterEqual = false;
         } else if (lastToken == 3) {
             Tokens.push_back(currentNum);
             currentNum = "";
             Tokens.push_back(op);
+            display->setText(display->text() + op);
             lastToken = 2;
             afterEqual = false;
         } else if (lastToken == 2) {
