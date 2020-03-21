@@ -19,6 +19,7 @@ Calculator::Calculator(QWidget *parent) : QWidget(parent) {
     unaryOperator.insert("tan");
     unaryOperator.insert("sqrt");
     unaryOperator.insert("sqr");
+    unaryOperator.insert("-");
 
     // Initialize display
     display = new QLineEdit("");
@@ -264,33 +265,62 @@ double Calculator::calculateUnary(QString op, QString num) {
         E = new SqrExpression(new TerminalExpression(num.toDouble()));
     } else if (op == "sqrt") {
         E = new SqrtExpression(new TerminalExpression(num.toDouble()));
+    } else if (op == "-") {
+        E = new NegativeExpression(new TerminalExpression(num.toDouble()));
     } else {
         E = new TerminalExpression(num.toDouble());
     }
     return E->solve();
 }
 
+bool Calculator::isNumber(QString token) {
+    return (!unaryOperator.contains(token) && !binaryOperator.contains(token));
+}
+
+bool Calculator::isUnary(QString token) {
+    return unaryOperator.contains(token);
+}
+
+bool Calculator::isBinary(QString token) {
+    return binaryOperator.contains(token);
+}
+
 double Calculator::calculateTokens() {
     for (auto x : Tokens) std::cerr << x.toUtf8().constData() << " ";
-    std::cerr << std::endl;
 
-    double ans = 0;
-
-    if (Tokens.size() == 2) {
-        QString op = Tokens.front();
+    while (Tokens.size() > 1) {
+        QString left;
+        if (isUnary(Tokens[0]) && isNumber(Tokens[1])) {
+            left = QString::number(calculateUnary(Tokens[0], Tokens[1]));
+            Tokens.pop_front();
+            Tokens.pop_front();
+        } else {
+            left = Tokens[0];
+            Tokens.pop_front();
+        }
+        if (Tokens.empty()) {   // hanya angka/unaryExpression, langsung =
+            Tokens.push_front(left);
+            continue;
+        }
+        QString op = Tokens[0];
         Tokens.pop_front();
-        QString num = Tokens.front();
-        Tokens.pop_front();
-        ans = calculateUnary(op, num);
-    } else if (Tokens.size() == 3) {
-        QString left = Tokens.front();
-        Tokens.pop_front();
-        QString op = Tokens.front();
-        Tokens.pop_front();
-        QString right = Tokens.front();
-        Tokens.pop_front();
-        ans = calculateBinary(left, op, right);
+        QString right;
+        if (isUnary(Tokens[0]) && isNumber(Tokens[1])) {
+            right = QString::number(calculateUnary(Tokens[0], Tokens[1]));
+            Tokens.pop_front();
+            Tokens.pop_front();
+        } else {
+            right = Tokens[0];
+            Tokens.pop_front();
+        }
+        Tokens.push_front(QString::number(calculateBinary(left, op, right)));
     }
+
+    double ans = Tokens.front().toDouble();
+    Tokens.pop_front();
+
+    std::cerr << " = " << ans;
+    std::cerr << std::endl;
 
     return ans;
 }

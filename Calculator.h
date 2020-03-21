@@ -14,6 +14,7 @@
 #include "TanExpression.h"
 #include "SqrExpression.h"
 #include "SqrtExpression.h"
+#include "NegativeExpression.h"
 #include "TerminalExpression.h"
 
 #include <QWidget>
@@ -47,6 +48,9 @@ private:
     double calculateBinary(QString left, QString op, QString right);
     double calculateUnary(QString op, QString num);
     double calculateTokens();
+    bool isNumber(QString token);
+    bool isUnary(QString token);
+    bool isBinary(QString token);
     QSet<QString> binaryOperator;
     QSet<QString> unaryOperator;
     bool afterEqual;
