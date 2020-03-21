@@ -7,6 +7,7 @@ Calculator::Calculator(QWidget *parent) : QWidget(parent) {
     previousAns = "";
     afterEqual = true;
     lastToken = 0;
+    countParenthesis = 0;
 
     // Initialize operator sets
     binaryOperator.insert("+");
@@ -25,7 +26,7 @@ Calculator::Calculator(QWidget *parent) : QWidget(parent) {
     display = new QLineEdit("");
     display->setReadOnly(true);
     display->setAlignment(Qt::AlignRight);
-    display->setMaxLength(15);
+    display->setMaxLength(30);
 
     // Initialize display font size
     QFont font = display->font();
@@ -51,6 +52,8 @@ Calculator::Calculator(QWidget *parent) : QWidget(parent) {
     Button *MCButton = createButton("MC", SLOT(MC_onClick()));
     Button *MRButton = createButton("MR", SLOT(MR_onClick()));
     Button *clearButton = createButton("clear", SLOT(clear_onClick()));
+    Button *openParenthesis = createButton("(", SLOT(parenthesis_onClick()));
+    Button *closeParenthesis = createButton(")", SLOT(parenthesis_onClick()));
 
     // Add buttons to layout
     QGridLayout *mainLayout = new QGridLayout;
@@ -81,6 +84,8 @@ Calculator::Calculator(QWidget *parent) : QWidget(parent) {
     mainLayout->addWidget(cosButton, 4, 4);
     mainLayout->addWidget(tanButton, 5, 4);
     mainLayout->addWidget(sqrButton, 2, 5);
+    mainLayout->addWidget(openParenthesis, 3, 5);
+    mainLayout->addWidget(closeParenthesis, 4, 5);
     setLayout(mainLayout);
 
     setWindowTitle("CalcSayur");
@@ -179,6 +184,10 @@ void Calculator::equal_onClick() {
             if (lastToken == 3) Tokens.push_back(currentNum);
             currentNum = "";
             lastToken = 0;
+            if (countParenthesis > 0) {
+                QString err = "Ada kurung yang tidak ditutup";
+                throw err;
+            }
             double result = calculateTokens();
             previousAns = QString::number(result);
             display->setText(QString::number(result));
@@ -225,10 +234,44 @@ void Calculator::MR_onClick() {
 void Calculator::clear_onClick() {
     currentNum = "0";
     lastToken = 0;
+    countParenthesis = 0;
     afterEqual = true;
     Tokens.clear();
     display->clear();
     afterEqual = false;
+}
+
+void Calculator::parenthesis_onClick() {
+    if (afterEqual) display->clear();
+    Button *clickedButton = qobject_cast<Button*>(sender());
+    if (!clickedButton) return;
+    QString parenthesis = clickedButton->text();
+    try {
+        if (parenthesis == "(") {
+            if (lastToken != 3) {
+                countParenthesis++;
+            } else {
+                QString err = "Tidak boleh ada kurung buka setelah angka";
+                throw err;
+            }
+        } else {
+            if (countParenthesis <= 0) {
+                QString err = "Kelebihan kurung tutup";
+                throw err;
+            }
+            if (lastToken == 3) {
+                Tokens.push_back(currentNum);
+                currentNum = "";
+            }
+            countParenthesis--;
+        }
+        Tokens.push_back(parenthesis);
+        display->setText(display->text() + parenthesis);
+        lastToken = 0;
+    } catch (QString error) {
+        QErrorMessage* E = new QErrorMessage();
+        E->showMessage(error);
+    }
 }
 
 Button* Calculator::createButton(const QString &text, const char *member) {
@@ -248,6 +291,7 @@ double Calculator::calculateBinary(QString left, QString op, QString right) {
     } else if (op == ":") {
         E = new DivideExpression(new TerminalExpression(left.toDouble()), new TerminalExpression(right.toDouble()));
     } else {    // harusnya ga masuk sini
+        std::cerr << left.toUtf8().constData() << op.toUtf8().constData() << right.toUtf8().constData() << std::endl;
         QString err = "Unexpected error";
         throw err;
     }
@@ -286,39 +330,69 @@ bool Calculator::isBinary(QString token) {
     return binaryOperator.contains(token);
 }
 
+int Calculator::priority(QString token) {
+    if (token == "(" || token == ")") return 0;
+    else if (token == "+" || token == "-") return 1;
+    else if (token == "*" || token == ":") return 2;
+    else return 3;
+}
+
+void Calculator::process(QStack<QString>& Value, QString op) {
+    if (isUnary(op)) {
+        QString num = Value.top();
+        Value.pop();
+        num = QString::number(calculateUnary(op, num));
+        Value.push(num);
+    } else {
+        QString right = Value.top();
+        Value.pop();
+        QString left = Value.top();
+        Value.pop();
+        QString res = QString::number(calculateBinary(left, op, right));
+        Value.push(res);
+    }
+}
+
 double Calculator::calculateTokens() {
     for (auto x : Tokens) std::cerr << x.toUtf8().constData() << " ";
 
-    while (Tokens.size() > 1) {
-        QString left;
-        if (isUnary(Tokens[0]) && isNumber(Tokens[1])) {
-            left = QString::number(calculateUnary(Tokens[0], Tokens[1]));
-            Tokens.pop_front();
-            Tokens.pop_front();
-        } else {
-            left = Tokens[0];
-            Tokens.pop_front();
-        }
-        if (Tokens.empty()) {   // hanya angka/unaryExpression, langsung =
-            Tokens.push_front(left);
-            continue;
-        }
-        QString op = Tokens[0];
+    QStack<QString> Value;
+    QStack<QString> Operator;
+    while (!Tokens.empty()) {
+        QString cur = Tokens.front();
         Tokens.pop_front();
-        QString right;
-        if (isUnary(Tokens[0]) && isNumber(Tokens[1])) {
-            right = QString::number(calculateUnary(Tokens[0], Tokens[1]));
-            Tokens.pop_front();
-            Tokens.pop_front();
+
+        if (cur == "(") {
+            Operator.push(cur);
+        } else if (cur == ")") {
+            while (Operator.top() != "(") {
+                process(Value, Operator.top());
+                Operator.pop();
+            }
+            Operator.pop();
+        } else if (isBinary(cur)) {
+            while (!Operator.empty() && priority(Operator.top()) >= priority(cur)) {
+                process(Value, Operator.top());
+                Operator.pop();
+            }
+            Operator.push(cur);
+        } else if (isUnary(cur)) {
+            while (!Operator.empty() && priority(Operator.top()) > priority(cur)) {
+                process(Value, Operator.top());
+                Operator.pop();
+            }
+            Operator.push(cur);
         } else {
-            right = Tokens[0];
-            Tokens.pop_front();
+            Value.push(cur);
         }
-        Tokens.push_front(QString::number(calculateBinary(left, op, right)));
     }
 
-    double ans = Tokens.front().toDouble();
-    Tokens.pop_front();
+    while (!Operator.empty()) {
+        process(Value, Operator.top());
+        Operator.pop();
+    }
+
+    double ans = Value.front().toDouble();
 
     std::cerr << " = " << ans;
     std::cerr << std::endl;

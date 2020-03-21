@@ -42,6 +42,7 @@ private slots:
     void MC_onClick();
     void MR_onClick();
     void clear_onClick();
+    void parenthesis_onClick();
 
 private:
     Button *createButton(const QString &text, const char *member);
@@ -51,6 +52,8 @@ private:
     bool isNumber(QString token);
     bool isUnary(QString token);
     bool isBinary(QString token);
+    int priority(QString token);
+    void process(QStack<QString>& Value, QString op);
     QSet<QString> binaryOperator;
     QSet<QString> unaryOperator;
     bool afterEqual;
@@ -59,6 +62,7 @@ private:
     QString previousAns;
     QList<QString> Tokens;
     int lastToken;  // 0 - nothing, 1 - unary, 2 - binary, 3 - number
+    int countParenthesis;
     QLineEdit *display;
     enum { NumDigitButtons = 10 };
     Button *digitButtons[NumDigitButtons];
