@@ -155,8 +155,10 @@ void Calculator::equal_onClick() {
 }
 
 void Calculator::ans_onClick() {
+    if (afterEqual) display->clear();
     currentNum = previousAns;
     display->setText(display->text() + currentNum);
+    afterEqual = false;
 }
 
 void Calculator::MC_onClick() {
