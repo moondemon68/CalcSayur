@@ -338,18 +338,18 @@ int Calculator::priority(QString token) {
 }
 
 void Calculator::process(QStack<QString>& Value, QString op) {
-    if (isUnary(op)) {
-        QString num = Value.top();
-        Value.pop();
-        num = QString::number(calculateUnary(op, num));
-        Value.push(num);
-    } else {
+    if (isBinary(op)) {
         QString right = Value.top();
         Value.pop();
         QString left = Value.top();
         Value.pop();
         QString res = QString::number(calculateBinary(left, op, right));
         Value.push(res);
+    } else {
+        QString num = Value.top();
+        Value.pop();
+        num = QString::number(calculateUnary(op, num));
+        Value.push(num);
     }
 }
 
@@ -376,6 +376,7 @@ double Calculator::calculateTokens() {
                 Operator.pop();
             }
             Operator.push(cur);
+            std::cerr<<"hai"<<std::endl;
         } else if (isUnary(cur)) {
             while (!Operator.empty() && priority(Operator.top()) > priority(cur)) {
                 process(Value, Operator.top());
