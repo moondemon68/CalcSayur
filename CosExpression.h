@@ -3,7 +3,7 @@
 
 #include "UnaryExpression.h"
 
-class CosExpression : UnaryExpression {
+class CosExpression : public UnaryExpression {
 public:
     CosExpression(Expression* x);
     double solve();

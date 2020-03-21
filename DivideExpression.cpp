@@ -7,7 +7,8 @@ DivideExpression::DivideExpression(Expression* x, Expression* y) : BinaryExpress
 double DivideExpression::solve() {
     try {
         if (y->solve() == 0) {
-            throw "Division by zero";
+            QString err = "Division by zero";
+            throw err;
         }
     } catch (QString error) {
         QErrorMessage* E = new QErrorMessage();

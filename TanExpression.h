@@ -3,7 +3,7 @@
 
 #include "UnaryExpression.h"
 
-class TanExpression : UnaryExpression {
+class TanExpression : public UnaryExpression {
 public:
     TanExpression(Expression* x);
     double solve();

@@ -3,7 +3,9 @@
 Calculator::Calculator(QWidget *parent) : QWidget(parent) {
     // Initialize variables
     currentNum = "0";
-    previousAns = 0;
+    currentUnary = "";
+    previousAns = "";
+    afterEqual = true;
 
     // Initialize display
     display = new QLineEdit("");
@@ -71,15 +73,18 @@ Calculator::Calculator(QWidget *parent) : QWidget(parent) {
 }
 
 void Calculator::digit_onClick() {
+    if (afterEqual) display->clear();
     Button *clickedButton = qobject_cast<Button*>(sender());
     QString digit = clickedButton->text();
     if (currentNum == "0" && digit == "0") return;
     currentNum += digit;
     if (display->text() == "0") display->setText(digit);
     display->setText(display->text() + digit);
+    afterEqual = false;
 }
 
 void Calculator::point_onClick() {
+    if (afterEqual) display->clear();
     try {
         if (currentNum.contains('.')) {
             QString err = "Sudah ada tanda desimal";
@@ -87,6 +92,7 @@ void Calculator::point_onClick() {
         } else {
             currentNum += '.';
             display->setText(display->text() + '.');
+            afterEqual = false;
         }
     } catch (QString error) {
         QErrorMessage* E = new QErrorMessage();
@@ -95,6 +101,7 @@ void Calculator::point_onClick() {
 }
 
 void Calculator::binaryOperator_onClick() {
+    if (afterEqual) display->clear();
     Button *clickedButton = qobject_cast<Button*>(sender());
     if (!clickedButton) return;
     QString op = clickedButton->text();
@@ -107,34 +114,44 @@ void Calculator::binaryOperator_onClick() {
     } else if (op == ":") {
 
     }
+    afterEqual = false;
 }
 
 void Calculator::unaryOperator_onClick() {
+    if (afterEqual) display->clear();
     Button *clickedButton = qobject_cast<Button*>(sender());
     if (!clickedButton) return;
     QString op = clickedButton->text();
-    if (op == "sin") {
-
-    } else if (op == "cos") {
-
-    } else if (op == "tan") {
-
-    } else if (op == "sqrt") {
-
-    } else if (op == "sqr") {
-
+    try {
+        if (currentUnary != "") {
+            QString err = "Unary operator tidak boleh berulang";
+            throw err;
+        }
+        currentUnary = op;
+        display->setText(display->text() + op);
+        afterEqual = false;
+    } catch (QString error) {
+        QErrorMessage* E = new QErrorMessage();
+        E->showMessage(error);
     }
 }
 
 void Calculator::equal_onClick() {
-
+    currentNum = QString::number(calculateUnary());
+    display->setText(currentNum);
+    previousAns = currentNum;
+    currentNum = "0";
+    currentUnary = "";
+    afterEqual = true;
 }
 
 void Calculator::ans_onClick() {
-
+    currentNum = previousAns;
+    display->setText(display->text() + currentNum);
 }
 
 void Calculator::MC_onClick() {
+    currentNum = display->text();
     Memory.enqueue(currentNum.toDouble());
     currentNum = "";
     display->clear();
@@ -148,6 +165,7 @@ void Calculator::MR_onClick() {
         }
         currentNum = QString::number(Memory.dequeue());
         display->setText(display->text() + currentNum);
+        afterEqual = false;
     } catch (QString error) {
         QErrorMessage* E = new QErrorMessage();
         E->showMessage(error);
@@ -156,7 +174,9 @@ void Calculator::MR_onClick() {
 
 void Calculator::clear_onClick() {
     currentNum = "0";
+    currentUnary = "";
     display->clear();
+    afterEqual = false;
 }
 
 Button* Calculator::createButton(const QString &text, const char *member) {
@@ -165,6 +185,25 @@ Button* Calculator::createButton(const QString &text, const char *member) {
     return button;
 }
 
-void Calculator::calculate() {
+double Calculator::calculateBinary() {
 
+}
+
+double Calculator::calculateUnary() {
+    Expression* E;
+    if (currentUnary == "sin") {
+        E = new SinExpression(new TerminalExpression(currentNum.toDouble()));
+    } else if (currentUnary == "cos") {
+        E = new CosExpression(new TerminalExpression(currentNum.toDouble()));
+    } else if (currentUnary == "tan") {
+        E = new TanExpression(new TerminalExpression(currentNum.toDouble()));
+    } else if (currentUnary == "sqr") {
+        E = new SqrExpression(new TerminalExpression(currentNum.toDouble()));
+    } else if (currentUnary == "sqrt") {
+        E = new SqrtExpression(new TerminalExpression(currentNum.toDouble()));
+    } else {
+        E = new TerminalExpression(currentNum.toDouble());
+    }
+    currentUnary = "";
+    return E->solve();
 }

@@ -4,7 +4,7 @@
 #include "UnaryExpression.h"
 #include <QErrorMessage>
 
-class SqrtExpression : UnaryExpression {
+class SqrtExpression : public UnaryExpression {
 public:
     SqrtExpression(Expression* x);
     double solve();

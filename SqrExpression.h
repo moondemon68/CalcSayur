@@ -3,7 +3,7 @@
 
 #include "UnaryExpression.h"
 
-class SqrExpression : UnaryExpression {
+class SqrExpression : public UnaryExpression {
 public:
     SqrExpression(Expression* x);
     double solve();

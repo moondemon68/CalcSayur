@@ -3,6 +3,18 @@
 
 #include "Button.h"
 #include "Expression.h"
+#include "BinaryExpression.h"
+#include "AddExpression.h"
+#include "SubtractExpression.h"
+#include "MultiplyExpression.h"
+#include "DivideExpression.h"
+#include "UnaryExpression.h"
+#include "SinExpression.h"
+#include "CosExpression.h"
+#include "TanExpression.h"
+#include "SqrExpression.h"
+#include "SqrtExpression.h"
+#include "TerminalExpression.h"
 
 #include <QWidget>
 #include <QQueue>
@@ -30,11 +42,15 @@ private slots:
 
 private:
     Button *createButton(const QString &text, const char *member);
-    void calculate();
+    double calculateBinary();
+    double calculateUnary();
+    bool afterEqual;
     QQueue<double> Memory;
     QString currentNum;
-    double previousAns;
-//    QStack<Expression> Expressions;
+    QString currentUnary;
+    QString previousAns;
+    QStack<double> Operands;
+    QStack<QString> Operators;
     QLineEdit *display;
     enum { NumDigitButtons = 10 };
     Button *digitButtons[NumDigitButtons];

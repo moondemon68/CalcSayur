@@ -3,7 +3,7 @@
 
 #include "UnaryExpression.h"
 
-class SinExpression : UnaryExpression {
+class SinExpression : public UnaryExpression {
 public:
     SinExpression(Expression* x);
     double solve();
