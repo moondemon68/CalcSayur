@@ -69,7 +69,18 @@ Kelompok 2 / K03 :
 2. Ctrl + R to compile and run the project.
 
 # Screenshots
-![alt text](https://github.com/moondemon68/CalcSayur/tree/master/images/start.png "Starting the glorious app.")
-![alt text](https://github.com/moondemon68/CalcSayur/tree/master/images/que.png "Input.")
-![alt text](https://github.com/moondemon68/CalcSayur/tree/master/images/ans.png "Output.")
-![alt text](https://github.com/moondemon68/CalcSayur/tree/master/images/err.png "An error. I wonder what it is.")
+Starting the app.
+
+![alt text](images/start.png "Starting the glorious app.")
+
+Inputting the expression.
+
+![alt text](images/que.png "Input.")
+
+After pressing enter,
+
+![alt text](images/ans.png "Output.")
+
+10/10 will press MR again.
+
+![alt text](images/err.png "An error. I wonder what it is.")
