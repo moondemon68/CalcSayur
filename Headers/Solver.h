@@ -32,7 +32,7 @@ public:
      *
      * @return hasil perhitungan binary dalam double
      */
-    static double calculateBinary(QString left, QString op, QString right);
+    static double calculateExpression(QString left, QString op, QString right);
 
     /**
      * Method calculateUnary.
@@ -42,7 +42,7 @@ public:
      *
      * @return hasil perhitungan unary dalam double
      */
-    static double calculateUnary(QString op, QString num);
+    static double calculateExpression(QString op, QString num);
 
     /**
      * Method calculateTokens.

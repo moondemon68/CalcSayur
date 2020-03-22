@@ -18,7 +18,7 @@ void Solver::initializeSet() {
     unaryOperator.insert("-");
 }
 
-double Solver::calculateBinary(QString left, QString op, QString right) {
+double Solver::calculateExpression(QString left, QString op, QString right) {
     Expression* E;
     if (op == "+") {
         E = new AddExpression(new TerminalExpression(left.toDouble()), new TerminalExpression(right.toDouble()));
@@ -35,7 +35,7 @@ double Solver::calculateBinary(QString left, QString op, QString right) {
     return E->solve();
 }
 
-double Solver::calculateUnary(QString op, QString num) {
+double Solver::calculateExpression(QString op, QString num) {
     Expression* E;
     if (op == "sin") {
         E = new SinExpression(new TerminalExpression(num.toDouble()));
@@ -125,12 +125,12 @@ void Solver::process(QStack<QString>& Value, QString op) {
         Value.pop();
         QString left = Value.top();
         Value.pop();
-        QString res = QString::number(calculateBinary(left, op, right));
+        QString res = QString::number(calculateExpression(left, op, right));
         Value.push(res);
     } else {
         QString num = Value.top();
         Value.pop();
-        num = QString::number(calculateUnary(op, num));
+        num = QString::number(calculateExpression(op, num));
         Value.push(num);
     }
 }
