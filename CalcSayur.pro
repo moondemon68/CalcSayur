@@ -14,7 +14,6 @@ SOURCES = \
     Sources/DivideExpression.cpp \
     Sources/Expression.cpp \
     Sources/MultiplyExpression.cpp \
-    Sources/NegativeExpression.cpp \
     Sources/SinExpression.cpp \
     Sources/Solver.cpp \
     Sources/SqrExpression.cpp \
@@ -34,7 +33,6 @@ HEADERS = \
     Headers/DivideExpression.h \
     Headers/Expression.h \
     Headers/MultiplyExpression.h \
-    Headers/NegativeExpression.h \
     Headers/SinExpression.h \
     Headers/Solver.h \
     Headers/SqrExpression.h \

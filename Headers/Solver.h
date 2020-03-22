@@ -14,7 +14,6 @@
 #include "TanExpression.h"
 #include "SqrExpression.h"
 #include "SqrtExpression.h"
-#include "NegativeExpression.h"
 #include "TerminalExpression.h"
 
 #include <iostream>
