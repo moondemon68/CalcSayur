@@ -127,7 +127,7 @@ void Calculator::binaryOperator_onClick() {
         if ((lastToken == 2 || lastToken == 0) && op == "-") {  // - jadi unary
             Tokens.push_back(op);
             display->setText(display->text() + op);
-            lastToken = 2;
+            lastToken = 1;
             afterEqual = false;
         } else if (lastToken == 3) {
             Tokens.push_back(currentNum);
@@ -232,7 +232,7 @@ void Calculator::MR_onClick() {
 }
 
 void Calculator::clear_onClick() {
-    currentNum = "0";
+    currentNum = "";
     lastToken = 0;
     countParenthesis = 0;
     afterEqual = true;
@@ -268,6 +268,7 @@ void Calculator::parenthesis_onClick() {
         Tokens.push_back(parenthesis);
         display->setText(display->text() + parenthesis);
         lastToken = 0;
+        afterEqual = false;
     } catch (QString error) {
         QErrorMessage* E = new QErrorMessage();
         E->showMessage(error);
