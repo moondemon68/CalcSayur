@@ -57,6 +57,7 @@ private:
     QSet<QString> binaryOperator;
     QSet<QString> unaryOperator;
     bool afterEqual;
+    bool nextNegative;
     QQueue<double> Memory;
     QString currentNum;
     QString previousAns;

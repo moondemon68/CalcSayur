@@ -6,6 +6,7 @@ Calculator::Calculator(QWidget *parent) : QWidget(parent) {
     currentNum = "";
     previousAns = "";
     afterEqual = true;
+    nextNegative =false;
     lastToken = 0;
     countParenthesis = 0;
 
@@ -96,6 +97,10 @@ void Calculator::digit_onClick() {
     Button *clickedButton = qobject_cast<Button*>(sender());
     QString digit = clickedButton->text();
     currentNum += digit;
+    if(nextNegative){
+        currentNum = "-" + currentNum;
+        nextNegative =false;
+    }
     display->setText(display->text() + digit);
     lastToken = 3;
     afterEqual = false;
@@ -124,10 +129,11 @@ void Calculator::binaryOperator_onClick() {
     QString op = clickedButton->text();
     if (!clickedButton) return;
     try {
-        if ((lastToken == 2 || lastToken == 0) && op == "-") {  // - jadi unary
-            Tokens.push_back(op);
+        if ((lastToken == 2 || lastToken == 0 || lastToken == 1) && op == "-" && !nextNegative) {  // - jadi unary
+            //Tokens.push_back(op);
+            nextNegative = true;
             display->setText(display->text() + op);
-            lastToken = 1;
+            //lastToken = 2;
             afterEqual = false;
         } else if (lastToken == 3) {
             Tokens.push_back(currentNum);
@@ -203,9 +209,11 @@ void Calculator::equal_onClick() {
 }
 
 void Calculator::ans_onClick() {
+    if (afterEqual) display->clear();
     currentNum = previousAns;
     lastToken = 3;
     display->setText(display->text() + currentNum);
+    afterEqual = false;
 }
 
 void Calculator::MC_onClick() {
@@ -377,7 +385,6 @@ double Calculator::calculateTokens() {
                 Operator.pop();
             }
             Operator.push(cur);
-            std::cerr<<"hai"<<std::endl;
         } else if (isUnary(cur)) {
             while (!Operator.empty() && priority(Operator.top()) > priority(cur)) {
                 process(Value, Operator.top());
