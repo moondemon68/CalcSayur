@@ -1,4 +1,4 @@
-#include "TerminalExpression.h"
+#include "Headers/TerminalExpression.h"
 
 TerminalExpression::TerminalExpression(double x) {
     this->x = x;

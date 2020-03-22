@@ -6,43 +6,43 @@ QT       += widgets
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES = \
-    AddExpression.cpp \
-    BinaryExpression.cpp \
-    Button.cpp \
-    Calculator.cpp \
-    CosExpression.cpp \
-    DivideExpression.cpp \
-    Expression.cpp \
-    MultiplyExpression.cpp \
-    NegativeExpression.cpp \
-    SinExpression.cpp \
-    Solver.cpp \
-    SqrExpression.cpp \
-    SqrtExpression.cpp \
-    SubtractExpression.cpp \
-    TanExpression.cpp \
-    TerminalExpression.cpp \
-    UnaryExpression.cpp \
-    main.cpp
+    Sources/AddExpression.cpp \
+    Sources/BinaryExpression.cpp \
+    Sources/Button.cpp \
+    Sources/Calculator.cpp \
+    Sources/CosExpression.cpp \
+    Sources/DivideExpression.cpp \
+    Sources/Expression.cpp \
+    Sources/MultiplyExpression.cpp \
+    Sources/NegativeExpression.cpp \
+    Sources/SinExpression.cpp \
+    Sources/Solver.cpp \
+    Sources/SqrExpression.cpp \
+    Sources/SqrtExpression.cpp \
+    Sources/SubtractExpression.cpp \
+    Sources/TanExpression.cpp \
+    Sources/TerminalExpression.cpp \
+    Sources/UnaryExpression.cpp \
+    Sources/main.cpp
 
 HEADERS = \
-    AddExpression.h \
-    BinaryExpression.h \
-    Button.h \
-    Calculator.h \
-    CosExpression.h \
-    DivideExpression.h \
-    Expression.h \
-    MultiplyExpression.h \
-    NegativeExpression.h \
-    SinExpression.h \
-    Solver.h \
-    SqrExpression.h \
-    SqrtExpression.h \
-    SubtractExpression.h \
-    TanExpression.h \
-    TerminalExpression.h \
-    UnaryExpression.h
+    Headers/AddExpression.h \
+    Headers/BinaryExpression.h \
+    Headers/Button.h \
+    Headers/Calculator.h \
+    Headers/CosExpression.h \
+    Headers/DivideExpression.h \
+    Headers/Expression.h \
+    Headers/MultiplyExpression.h \
+    Headers/NegativeExpression.h \
+    Headers/SinExpression.h \
+    Headers/Solver.h \
+    Headers/SqrExpression.h \
+    Headers/SqrtExpression.h \
+    Headers/SubtractExpression.h \
+    Headers/TanExpression.h \
+    Headers/TerminalExpression.h \
+    Headers/UnaryExpression.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

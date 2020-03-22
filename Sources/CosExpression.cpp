@@ -1,4 +1,4 @@
-#include "CosExpression.h"
+#include "Headers/CosExpression.h"
 #include <math.h>
 
 CosExpression::CosExpression(Expression* x) : UnaryExpression(x) {

@@ -1,4 +1,4 @@
-#include "NegativeExpression.h"
+#include "Headers/NegativeExpression.h"
 #include <math.h>
 
 NegativeExpression::NegativeExpression(Expression* x) : UnaryExpression(x) {

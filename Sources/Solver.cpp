@@ -1,4 +1,4 @@
-#include "Solver.h"
+#include "Headers/Solver.h"
 
 // Initialize operator sets
 QSet<QString> Solver::binaryOperator;

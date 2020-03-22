@@ -1,4 +1,4 @@
-#include "SinExpression.h"
+#include "Headers/SinExpression.h"
 #include <math.h>
 
 SinExpression::SinExpression(Expression* x) : UnaryExpression(x) {
