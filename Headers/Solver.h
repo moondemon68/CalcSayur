@@ -92,12 +92,18 @@ public:
     /**
      * Method process.
      *
-     * @param address Stack of Qstring Value
+     * @param address Stack of QString Value
      * @param QString op
      *
-     * Proses bagaimana kalkulator menghandle operator binary dan unary
+     * Menyelesaikan unary atau binary expression berdasarkan operator
      */
     static void process(QStack<QString>& Value, QString op);
+
+    /**
+     * Method initializeSet.
+     *
+     * Memasukkan operator unary atau binary ke dalam QSet of QString
+     */
     static void initializeSet();
     static QSet<QString> binaryOperator;
     static QSet<QString> unaryOperator;
