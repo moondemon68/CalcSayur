@@ -10,8 +10,8 @@ Kelompok 2 / K03 :
 # Project Structure
 ```
 .
+├── bin.zip                         # Binary for the project in zip format
 ├── CalcSayur_Project
-│   ├── bin.zip                     # Binary for the project in zip format
 │   ├── CalcSayur.pro               # Qt Project file
 │   ├── Headers
 │   │   ├── AddExpression.h
