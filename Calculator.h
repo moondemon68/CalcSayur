@@ -2,6 +2,7 @@
 #define CALCULATOR_H
 
 #include "Button.h"
+#include "Solver.h"
 #include "Expression.h"
 #include "BinaryExpression.h"
 #include "AddExpression.h"
@@ -46,16 +47,6 @@ private slots:
 
 private:
     Button *createButton(const QString &text, const char *member);
-    double calculateBinary(QString left, QString op, QString right);
-    double calculateUnary(QString op, QString num);
-    double calculateTokens();
-    bool isNumber(QString token);
-    bool isUnary(QString token);
-    bool isBinary(QString token);
-    int priority(QString token);
-    void process(QStack<QString>& Value, QString op);
-    QSet<QString> binaryOperator;
-    QSet<QString> unaryOperator;
     bool afterEqual;
     bool nextNegative;
     QQueue<double> Memory;

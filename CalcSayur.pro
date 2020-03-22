@@ -16,6 +16,7 @@ SOURCES = \
     MultiplyExpression.cpp \
     NegativeExpression.cpp \
     SinExpression.cpp \
+    Solver.cpp \
     SqrExpression.cpp \
     SqrtExpression.cpp \
     SubtractExpression.cpp \
@@ -35,6 +36,7 @@ HEADERS = \
     MultiplyExpression.h \
     NegativeExpression.h \
     SinExpression.h \
+    Solver.h \
     SqrExpression.h \
     SqrtExpression.h \
     SubtractExpression.h \
