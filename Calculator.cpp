@@ -269,7 +269,7 @@ void Calculator::parenthesis_onClick() {
         }
         Tokens.push_back(parenthesis);
         display->setText(display->text() + parenthesis);
-        lastToken = 0;
+        //lastToken = 0;
     } catch (QString error) {
         QErrorMessage* E = new QErrorMessage();
         E->showMessage(error);
