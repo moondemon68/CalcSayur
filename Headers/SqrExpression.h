@@ -5,8 +5,17 @@
 
 class SqrExpression : public UnaryExpression {
 public:
+    /**
+     * Konstruktor untuk SqrExpression.
+     *
+     * @param Pointer ekspresi x
+     */
     SqrExpression(Expression* x);
-    /* Konstruktor yang menerima pointer ke satu buah ekspresi */
+    /**
+     * Menyelesaikan pangkat 2 (persegi)
+     *
+     * @return hasil persegi ekspresi x
+     */
     double solve();
 };
 

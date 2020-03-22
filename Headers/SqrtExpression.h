@@ -6,8 +6,17 @@
 
 class SqrtExpression : public UnaryExpression {
 public:
+    /**
+     * Konstruktor untuk SqrtExpression.
+     *
+     * @param Pointer ekspresi x
+     */
     SqrtExpression(Expression* x);
-    /* Konstruktor yang menerima pointer ke satu buah ekspresi */
+    /**
+     * Menyelesaikan pengakaran kuadrat
+     *
+     * @return hasil akar kuadrat ekspresi x
+     */
     double solve();
 };
 

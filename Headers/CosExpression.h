@@ -5,8 +5,17 @@
 
 class CosExpression : public UnaryExpression {
 public:
+    /**
+     * Konstruktor untuk CosExpression.
+     *
+     * @param Pointer ekspresi x
+     */
     CosExpression(Expression* x);
-    /* Konstruktor yang menerima pointer ke satu buah ekspresi */
+    /**
+     * Menyelesaikan fungsi trigonometri kosinus
+     *
+     * @return hasil kosinus ekspresi x
+     */
     double solve();
 };
 

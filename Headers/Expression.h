@@ -4,7 +4,15 @@
 
 class Expression {
 public:
+    /**
+     * Konstruktor untuk Expression.
+     *
+     */
     Expression();
+    /**
+     *
+     * abstract method yang merupakan polymorphism
+     */
     virtual double solve() = 0;
 };
 

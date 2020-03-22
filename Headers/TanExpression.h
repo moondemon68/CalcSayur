@@ -5,8 +5,17 @@
 
 class TanExpression : public UnaryExpression {
 public:
+    /**
+     * Konstruktor untuk TanExpression.
+     *
+     * @param Pointer ekspresi x
+     */
     TanExpression(Expression* x);
-    /* Konstruktor yang menerima pointer ke satu buah ekspresi */
+    /**
+     * Menyelesaikan fungsi trigonometri tangent
+     *
+     * @return hasil tangent ekspresi x
+     */
     double solve();
 };
 

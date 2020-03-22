@@ -5,8 +5,16 @@
 
 class NegativeExpression : public UnaryExpression {
 public:
+    /**
+     * Konstruktor untuk NegativeExpression.
+     *
+     * @param Pointer ekspresi x
+     */
     NegativeExpression(Expression* x);
-    /* Konstruktor yang menerima pointer ke satu buah ekspresi */
+    /**
+     *
+     * @return hasil negatif ekspresi x
+     */
     double solve();
 };
 

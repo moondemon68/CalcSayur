@@ -5,8 +5,17 @@
 
 class SinExpression : public UnaryExpression {
 public:
+    /**
+     * Konstruktor untuk SinExpression.
+     *
+     * @param Pointer ekspresi x
+     */
     SinExpression(Expression* x);
-    /* Konstruktor yang menerima pointer ke satu buah ekspresi */
+    /**
+     * Menyelesaikan fungsi trigonometri sinus
+     *
+     * @return hasil sinus ekspresi x
+     */
     double solve();
 };
 

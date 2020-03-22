@@ -8,10 +8,17 @@ protected:
     Expression* x;
 
 public:
+    /**
+     * Konstruktor untuk UnaryExpression.
+     *
+     * @param Pointer ekspresi x
+     */
     UnaryExpression(Expression* x);
-    /* Konstruktor yang menerima pointer ke satu buah ekspresi */
+    /**
+     *
+     * method abstract yang merupakan polymorphism
+     */
     virtual double solve() = 0;
-    /* Abstract f
 };
 
 #endif // UNARYEXPRESSION_H

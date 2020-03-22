@@ -7,8 +7,15 @@ class TerminalExpression : public Expression {
 protected:
     double x;
 public:
+    /**
+     * Konstruktor untuk TerminalExpression.
+     *
+     * @param double x
+     */
     TerminalExpression(double x);
-    /* Konstruktor yang menerima sebuah angka bertipe double */
+    /**
+     * @return double x
+     */
     double solve();
 };
 

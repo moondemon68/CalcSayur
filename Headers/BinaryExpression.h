@@ -9,8 +9,17 @@ protected:
     Expression* y;
 
 public:
+    /**
+     * Konstruktor untuk BinaryExpression.
+     *
+     * @param Pointer ekspresi x
+     * @param Pointer ekspresi y
+     */
     BinaryExpression(Expression* x, Expression* y);
-    /* Konstruktor yang menerima pointer ke dua buah ekspresi */
+    /**
+     *
+     * method abstract yang merupakan polymorphism
+     */
     virtual double solve() = 0;
 };
 

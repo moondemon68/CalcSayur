@@ -5,8 +5,18 @@
 
 class SubtractExpression : public BinaryExpression {
 public:
+    /**
+     * Konstruktor untuk SubtractExpression.
+     *
+     * @param Pointer ekspresi x
+     * @param Pointer ekspresi y
+     */
     SubtractExpression(Expression* x, Expression* y);
-    /* Konstruktor yang menerima pointer ke dua buah ekspresi */
+    /**
+     * Menyelesaikan pengurangan
+     *
+     * @return hasil pengurangan ekspresi x dan y
+     */
     double solve();
 };
 
