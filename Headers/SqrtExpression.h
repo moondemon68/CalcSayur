@@ -15,6 +15,7 @@ public:
     /**
      * Menyelesaikan pengakaran kuadrat
      *
+     * @throws bila terjadi pengakaran dengan ekspresi negatif
      * @return hasil akar kuadrat ekspresi x
      */
     double solve();
