@@ -67,3 +67,9 @@ Kelompok 2 / K03 :
 # Compiling and Running
 1. Open the .pro file in the Poject folder.
 2. Ctrl + R to compile and run the project.
+
+# Screenshots
+![alt text](https://github.com/moondemon68/CalcSayur/tree/master/images/start.png "Starting the glorious app.")
+![alt text](https://github.com/moondemon68/CalcSayur/tree/master/images/que.png "Input.")
+![alt text](https://github.com/moondemon68/CalcSayur/tree/master/images/ans.png "Output.")
+![alt text](https://github.com/moondemon68/CalcSayur/tree/master/images/err.png "An error. I wonder what it is.")
