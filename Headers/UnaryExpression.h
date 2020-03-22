@@ -9,7 +9,9 @@ protected:
 
 public:
     UnaryExpression(Expression* x);
+    /* Konstruktor yang menerima pointer ke satu buah ekspresi */
     virtual double solve() = 0;
+    /* Abstract f
 };
 
 #endif // UNARYEXPRESSION_H

@@ -6,6 +6,7 @@
 class CosExpression : public UnaryExpression {
 public:
     CosExpression(Expression* x);
+    /* Konstruktor yang menerima pointer ke satu buah ekspresi */
     double solve();
 };
 

@@ -6,6 +6,7 @@
 class SinExpression : public UnaryExpression {
 public:
     SinExpression(Expression* x);
+    /* Konstruktor yang menerima pointer ke satu buah ekspresi */
     double solve();
 };
 

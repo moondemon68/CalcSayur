@@ -6,6 +6,7 @@
 class TanExpression : public UnaryExpression {
 public:
     TanExpression(Expression* x);
+    /* Konstruktor yang menerima pointer ke satu buah ekspresi */
     double solve();
 };
 

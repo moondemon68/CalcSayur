@@ -6,6 +6,7 @@
 class SqrExpression : public UnaryExpression {
 public:
     SqrExpression(Expression* x);
+    /* Konstruktor yang menerima pointer ke satu buah ekspresi */
     double solve();
 };
 

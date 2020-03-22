@@ -8,6 +8,7 @@ protected:
     double x;
 public:
     TerminalExpression(double x);
+    /* Konstruktor yang menerima sebuah angka bertipe double */
     double solve();
 };
 

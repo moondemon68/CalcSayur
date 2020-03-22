@@ -10,6 +10,7 @@ protected:
 
 public:
     BinaryExpression(Expression* x, Expression* y);
+    /* Konstruktor yang menerima pointer ke dua buah ekspresi */
     virtual double solve() = 0;
 };
 
