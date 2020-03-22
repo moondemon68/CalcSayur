@@ -47,8 +47,6 @@ double Solver::calculateUnary(QString op, QString num) {
         E = new SqrExpression(new TerminalExpression(num.toDouble()));
     } else if (op == "sqrt") {
         E = new SqrtExpression(new TerminalExpression(num.toDouble()));
-    } else if (op == "-") {
-        E = new NegativeExpression(new TerminalExpression(num.toDouble()));
     } else {
         E = new TerminalExpression(num.toDouble());
     }

@@ -3,20 +3,7 @@
 
 #include "Button.h"
 #include "Solver.h"
-#include "Expression.h"
-#include "BinaryExpression.h"
-#include "AddExpression.h"
-#include "SubtractExpression.h"
-#include "MultiplyExpression.h"
-#include "DivideExpression.h"
-#include "UnaryExpression.h"
-#include "SinExpression.h"
-#include "CosExpression.h"
-#include "TanExpression.h"
-#include "SqrExpression.h"
-#include "SqrtExpression.h"
-#include "NegativeExpression.h"
-#include "TerminalExpression.h"
+
 
 #include <QWidget>
 #include <QQueue>
