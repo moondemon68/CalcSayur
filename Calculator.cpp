@@ -340,7 +340,7 @@ bool Calculator::isBinary(QString token) {
 int Calculator::priority(QString token) {
     if (token == "(" || token == ")") return 0;
     else if (token == "+" || token == "-") return 1;
-    else if (token == "*" || token == ":") return 2;
+    else if (token == "x" || token == ":") return 2;
     else return 3;
 }
 
