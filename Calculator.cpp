@@ -130,13 +130,11 @@ void Calculator::binaryOperator_onClick() {
     if (!clickedButton) return;
     try {
         if ((lastToken == 2 || lastToken == 0 || lastToken == 1) && op == "-" && !nextNegative) {  // - jadi unary
-            //Tokens.push_back(op);
             nextNegative = true;
             display->setText(display->text() + op);
-            //lastToken = 2;
             afterEqual = false;
         } else if (lastToken == 3) {
-            Tokens.push_back(currentNum);
+            if (currentNum != "") Tokens.push_back(currentNum);
             currentNum = "";
             Tokens.push_back(op);
             display->setText(display->text() + op);
@@ -187,7 +185,7 @@ void Calculator::equal_onClick() {
     if (afterEqual == true) return; // equal sign berkali - kali
     try {
         if (lastToken == 0 || lastToken == 3) {
-            if (lastToken == 3) Tokens.push_back(currentNum);
+            if (lastToken == 3 && currentNum != "") Tokens.push_back(currentNum);
             currentNum = "";
             lastToken = 0;
             if (countParenthesis > 0) {
@@ -275,7 +273,7 @@ void Calculator::parenthesis_onClick() {
         }
         Tokens.push_back(parenthesis);
         display->setText(display->text() + parenthesis);
-        lastToken = 0;
+//        lastToken = 0;
         afterEqual = false;
     } catch (QString error) {
         QErrorMessage* E = new QErrorMessage();
